@@ -9,13 +9,19 @@ region = anvil.Region.from_file(input())
 chunk = anvil.Chunk.from_region(region, 0, 0)
 blocks=''
 
-for ix in range(1,16):
-    for iy in range(1,256):
-        for iz in range(1,16):
+it=0
+for ix in range(0,16):
+    for iz in range(0,16):
+        for iy in range(0,256):
+            it+=1
+            if it%2000==0:
+                print('converting... '+str(it)+'/'+str(16*256*16))
+            
             block = chunk.get_block(ix,iy,iz)
             if block.id != 'air':
-                blocks+=str(ix)+','+str(iy)+','+str(iz)+'\n'
+                blocks+=str(ix)+','+str(iy)+','+str(iz)+'\n'   
 
+print(it)
 f = open("converted.txt", "w")
 f.write(blocks)
 f.close()
